@@ -61,8 +61,7 @@ namespace BackPalm.Controllers
             if (_usuario == null)
                 return NotFound();
             
-            serviceUsuario.Atualizar(id, _usuario);
-            return new ObjectResult(_usuario);
+            return new ObjectResult(serviceUsuario.Atualizar(id, usuario));
 
         }
 
@@ -70,12 +69,20 @@ namespace BackPalm.Controllers
 
         public IActionResult Excluir(int id)
         {
-            var usuario = serviceUsuario.BuscaPorId(id);
-            if (usuario == null)
-                return NotFound();
+            try
+            {
+                var usuario = serviceUsuario.BuscaPorId(id);
+                if (usuario == null)
+                    return NotFound();
 
-            serviceUsuario.Excluir(id);
-            return new ObjectResult($"Usuário id: {id} Excluido com sucesso!");
+                serviceUsuario.Excluir(id);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            
         }
     }
 }
