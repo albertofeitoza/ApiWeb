@@ -61,10 +61,6 @@ namespace BackPalm.Controllers
             if (_usuario == null)
                 return NotFound();
             
-            _usuario.Nome = usuario.Nome;
-            _usuario.Telefone = usuario.Telefone;
-            _usuario.Endereco = usuario.Endereco;
-            
             serviceUsuario.Atualizar(id, _usuario);
             return new ObjectResult(_usuario);
 
